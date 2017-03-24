@@ -20,22 +20,30 @@ import java.util.Locale;
 
 public class DangerActivity extends AppCompatActivity {
         private TextView tips;
-        private int Type;
+    int id;
+     private int Type,Type_Of_Danger;
         private final PositionMemory position = new PositionMemory(5);
-
+        InputStream file;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_internet);
-            Type = getIntent().getIntExtra("Type", 0);
+            setContentView(R.layout.danger_activity);
+            Bundle Bnd = getIntent().getExtras();
+            Type = Bnd.getInt("Type");
+            Type_Of_Danger = Bnd.getInt("Type_Of_Danger");
             tips = (TextView) findViewById(R.id.tip);
-            tips.setText(GetAnswer(Type,position.getPosition()));
+            switch(Type_Of_Danger){
+
+                case 0:          id = this.getResources().getIdentifier("danger", "raw", this.getPackageName()); break;
+                case 1:         id = this.getResources().getIdentifier("avoid", "raw", this.getPackageName()); break;
+            }
+            tips.setText(GetAnswer(Type,position.getPosition(),id));
         }
 
         public void next(View view) {
             question();
        /* if (position.incrementPosition()) {
-            tips.setText("Danger" + Integer.toString(position.getPosition()));
+            tips.setText("danger" + Integer.toString(position.getPosition()));
         } else {
             startActivity(new Intent(this, TestActivity.class));
         }*/
@@ -43,7 +51,7 @@ public class DangerActivity extends AppCompatActivity {
 
         public void back (View view){
             if (position.decrementPosition()) {
-                tips.setText(GetAnswer(Type,position.getPosition()));
+                tips.setText(GetAnswer(Type,position.getPosition(),id));
             }
         }
         public void question(){
@@ -52,9 +60,9 @@ public class DangerActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.True, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tips.setText(GetAnswer(Type,position.getPosition()));
+                            tips.setText(GetAnswer(Type,position.getPosition(),id));
                             if (position.incrementPosition()) {
-                                tips.setText(GetAnswer(Type,position.getPosition()));
+                                tips.setText(GetAnswer(Type,position.getPosition(),id));
                             } else {
                                 startActivity(new Intent(getApplicationContext(), TestActivity.class));
                             }
@@ -70,11 +78,11 @@ public class DangerActivity extends AppCompatActivity {
                     });
             myAlert.show();
         }
-        public String GetAnswer(int type,int position) {
+        public String GetAnswer(int type,int position,int id) {
             try {
+                InputStream file = getResources().openRawResource(id);
                 String language = Locale.getDefault().getLanguage();
-                InputStream raw = getBaseContext().getResources().openRawResource(R.raw.danger_internet);
-                BufferedReader is = new BufferedReader(new InputStreamReader(raw, "UTF8"));
+                BufferedReader is = new BufferedReader(new InputStreamReader(file, "UTF8"));
                 String Key;
                 String a =("msg" + Integer.toString(type) + '.'+ Integer.toString(position)+ '-' +language);
                 while((Key = is.readLine())!=null) {

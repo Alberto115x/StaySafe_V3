@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/StaySafe-itali-master.iml" filepath="$PROJECT_DIR$/StaySafe-itali-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StaySafe-itali-master-ok.iml" filepath="$PROJECT_DIR$/StaySafe-itali-master-ok.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

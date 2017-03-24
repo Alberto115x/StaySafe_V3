@@ -56,29 +56,33 @@ public class HomeActivity extends AppCompatActivity {
 
             case R.id.dialog_home_btn_internet:
                 Log.w(getLocalClassName(), "danger_btn_internet");
-                startActivity(new Intent(getBaseContext(), DangerActivity.class).putExtra("Type",0));
+                extras.putInt("Type",0);
+                extras.putInt("Type_Of_Danger",0);
+                startActivity(new Intent(getBaseContext(), DangerActivity.class).putExtras(extras));
                 break;
 
             case R.id.dialog_home_btn_realLife:
                 Log.w(getLocalClassName(), "danger_btn_realLife");
-                startActivity(new Intent(getBaseContext(), DangerActivity1.class).putExtra("Type",0));
+                extras.putInt("Type",0);
+                extras.putInt("Type_Of_Danger",1);
+                startActivity(new Intent(getBaseContext(), DangerActivity.class).putExtras(extras));
                 break;
 
             case R.id.avoid_dialog_home_btn_internet:
-// need fix
-                Log.w(getLocalClassName(), "danger_btn_realLife");
-                extras.putInt("Type",0);
-                extras.putInt("Type_Of_Danger",2);
+                Log.w(getLocalClassName(), "Avoid_btn_Intenet");
+                extras.putInt("Type",1);
+                extras.putInt("Type_Of_Danger",0);
                 startActivity(new Intent(getBaseContext(), DangerActivity.class).putExtras(extras));
                 break;
 
 
             case R.id.avoid_dialog_home_btn_realLife:
                 extras.putInt("Type",1);
-                extras.putInt("Type_Of_Danger",3);
+                extras.putInt("Type_Of_Danger",1);
                 Log.w(getLocalClassName(), "Avoid_btn_RealLife");
                 startActivity(new Intent(getBaseContext(), DangerActivity.class).putExtras(extras));
                 break;
+
 
             case R.id.logout:
                 Log.w(getLocalClassName(), "logout");
@@ -98,16 +102,16 @@ public class HomeActivity extends AppCompatActivity {
         View view = View.inflate(this, R.layout.dialog_home_choose, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         (dialog = dialogBuilder.setView(view).create()).show();
-        ((Button) view.findViewById(R.id.dialog_home_btn_internet)).setOnClickListener(new CustomOnClickListener());
         ((Button) view.findViewById(R.id.dialog_home_btn_realLife)).setOnClickListener(new CustomOnClickListener());
+        ((Button) view.findViewById(R.id.avoid_dialog_home_btn_realLife)).setOnClickListener(new CustomOnClickListener());
     }
 
     private void chooseTopicDialog2() {
         View view = View.inflate(this, R.layout.dialog_home_choose2, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         (dialog = dialogBuilder.setView(view).create()).show();
+        ((Button) view.findViewById(R.id.dialog_home_btn_internet)).setOnClickListener(new CustomOnClickListener());
         ((Button) view.findViewById(R.id.avoid_dialog_home_btn_internet)).setOnClickListener(new CustomOnClickListener());
-        ((Button) view.findViewById(R.id.avoid_dialog_home_btn_realLife)).setOnClickListener(new CustomOnClickListener());
     }
 
     /**
